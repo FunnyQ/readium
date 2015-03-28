@@ -20,10 +20,10 @@
     <div class="custom-links">
         <a href="https://twitter.com/MarkReadM" target="_blank"><i class="fa fa-twitter"></i></a>&nbsp;&nbsp;
         <a href="https://plus.google.com/113570202169808481097/posts" target="_blank"><i class="fa fa-google-plus"></i></a>&nbsp;&nbsp;
-        <a href="https://www.pinterest.com/markreadM/" target="_blank"><i class="fa fa-pinterest"></i></a>&nbsp;&nbsp;·&nbsp;&nbsp;
+        <a href="https://www.pinterest.com/markreadM/" target="_blank"><i class="fa fa-pinterest"></i></a>{{!-- &nbsp;&nbsp;·&nbsp;&nbsp;
         <a href="/aboutme/">Über mich</a>&nbsp;&nbsp;·&nbsp;&nbsp;
         <a href="/veroffentlichungen/">Veröffentlichungen</a>&nbsp;&nbsp;·&nbsp;&nbsp;
-        <a href="/alles-ausser-sprachkritik/">Sprachkritik</a>
+        <a href="/alles-ausser-sprachkritik/">Sprachkritik</a> --}}
     </div>
 </header>
 
@@ -53,28 +53,33 @@
 {{! The main content area on the homepage }}
 <main class="content" role="main">
 
-    <h5 class="index-headline featured"><span>Featured</span></h5>
 
-    <div class="container featured">
-        {{#foreach posts}}
-            {{#if featured}}
+    {{!-- moved featured post into if block, hidden if there is not any featured posts. --}}
+    {{#foreach posts}}
+        {{#if featured}}
+            <h5 class="index-headline featured"><span>Featured</span></h5>
+
+            <div class="container featured">
                 <article class="{{post_class}}" itemscope itemtype="http://schema.org/BlogPosting" role="article">
                     <div class="article-item">
                         <header class="post-header">
                             <h2 class="post-title" itemprop="name"><a href="{{url}}" itemprop="url">{{{title}}}</a></h2>
                         </header>
                         <section class="post-excerpt" itemprop="description">
+                            {{#if image}}
+                                <img src="{{image}}" alt="" class="post-coverimg">
+                            {{/if}}
                             <p>{{excerpt characters="130"}}&hellip;</p>
                         </section>
                         <div class="post-meta"><time datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMM YYYY"}}</time> <span class="post-tags-set">on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}}</span></div>
                     </div>
                 </article>
-            {{/if}}
-        {{/foreach}}
-    </div>
+            </div>
 
+            <h5 class="index-headline normal"><span>Regular</span></h5>
+        {{/if}}
+    {{/foreach}}
 
-    <h5 class="index-headline normal"><span>Regular</span></h5>
 
     <div class="cf frame">
     {{#foreach posts}}
@@ -86,6 +91,9 @@
                         <h2 class="post-title" itemprop="name"><a href="{{url}}" itemprop="url">{{{title}}}</a></h2>
                     </header>
                     <section class="post-excerpt" itemprop="description">
+                        {{#if image}}
+                            <img src="{{image}}" alt="" class="post-coverimg">
+                        {{/if}}
                         <p>{{excerpt characters="130"}}&hellip;</p>
                     </section>
                     <div class="post-meta"><time datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMM YYYY"}}</time> <span class="post-tags-set">on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}}</span></div>
@@ -102,9 +110,9 @@
 </main>
 
 <footer class="site-footer">
-    <a class="subscribe icon-feed" href="{{@blog.url}}/rss/"><span class="tooltip"> Subscribe!</span></a>
+    <a class="subscribe icon-feed i18n-marked" href="{{@blog.url}}/rss/"><span class="tooltip"> 立即訂閱！</span></a>
     <div class="inner">
          <section class="copyright">All content copyright <a href="{{@blog.url}}/">{{@blog.title}}</a> &copy; {{date format="YYYY"}} &bull; All rights reserved.</section>
-         <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org"> Ghost</a></section>
+         <section class="poweredby">使用好潮的 <a class="icon-ghost" href="http://ghost.org"> Ghost</a> 來發佈 Blog</section>
     </div>
 </footer>

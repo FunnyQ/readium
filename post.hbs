@@ -2,7 +2,6 @@
 
 {{! The comment above "< default" means - insert everything in this file into
     the {body} of the default.hbs template, which contains our header/footer. }}
-
 <main class="content" role="main">
 
     <article class="{{post_class}}">
@@ -13,7 +12,8 @@
         {{#has tag="articleImage"}}
 
         <div class="article-image">
-            <div class="post-image-image">
+            {{! 使用 Ghost 內建的 Post Image 作為封面 }}
+            <div class="post-image-image" style="background-image: url({{image}});">
 
                 Article Image
 
@@ -22,8 +22,8 @@
                 <h1 class="post-title">{{{title}}}</h1>
                 <div class="cf post-meta-text">
                     <div class="author-image" style="background-image: url({{author.image}})">Blog Logo</div>
-                    <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{author}}</h4> on
-                    <time datetime="{{date format="YYYY-MM-DD"}}">{{date format='DD MMM YYYY'}}</time>, tagged on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}}
+                    <h4 class="author-name i18n-marked" itemprop="author" itemscope itemtype="http://schema.org/Person">{{author}}</h4> 發表於
+                    <time class="i18n-marked" datetime="{{date format="YYYY-MM-DD"}}">{{date format='YYYY MMM DD'}}</time>， 標籤： {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}}
                 </div>
                 <center><a href="#topofpage" class="topofpage"><i class="fa fa-angle-down"></i></a></center>
             </div>
@@ -35,15 +35,7 @@
 
                 $(document).ready(function(){
 
-                    $('.post-content').each(function() {
-                        var $this = $(this),
-                            img = $this.find('img:first'),
-                            url = img.attr('src');
-
-                        $(".post-image-image").css('background-image', 'url('+url+')');
-
-                        img.remove();
-                    });
+                    // remove theme original image inset function
 
                     var $window = $(window),
                         $image = $('.post-image-image');
@@ -89,8 +81,8 @@
                 <h1 class="post-title">{{{title}}}</h1>
                 <div class="cf post-meta-text">
                     <div class="author-image" style="background-image: url({{author.image}})">Blog Logo</div>
-                    <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">{{author}}</h4> on
-                    <time datetime="{{date format="YYYY-MM-DD"}}">{{date format='DD MMM YYYY'}}</time>, tagged on {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}}
+                    <h4 class="author-name i18n-marked" itemprop="author" itemscope itemtype="http://schema.org/Person">{{author}}</h4> 發表於
+                    <time class="i18n-marked" datetime="{{date format="YYYY-MM-DD"}}">{{date format='YYYY MMM DD'}}</time> {{#if tags}}，標籤：{{/if}} {{#foreach tags}}<span class="post-tag-{{slug}}">{{#if @first}}{{else}}, {{/if}}<a href="/tag/{{slug}}">{{name}}</a></span>{{/foreach}}
                 </div>
             </div>
         </div>
@@ -127,21 +119,21 @@
             {{> comment-list}}
             <div class="bottom-teaser cf">
                 <div class="isLeft">
-                    <h5 class="index-headline featured"><span>Written by</span></h5>
+                    <h5 class="index-headline featured i18n-marked"><span>作者訊息</span></h5>
                     <section class="author">
                         <div class="author-image" style="background-image: url({{author.image}})">Blog Logo</div>
                         <h4>{{author}}</h4>
                         <p class="bio">{{author.bio}}</p>
                         <hr>
-                        <p class="published">Published <time datetime="{{date format="YYYY-MM-DD"}}">{{date format='DD MMM YYYY'}}</time></p>
+                        <p class="published i18n-marked">發表於 <time datetime="{{date format="YYYY-MM-DD"}}">{{date format='YYYY MMM DD'}}</time></p>
                     </section>
                 </div>
                 {{/post}}
                 <div class="isRight">
-                    <h5 class="index-headline featured"><span>Supported by</span></h5>
+                    <h5 class="index-headline featured i18n-marked"><span>支援訊息</span></h5>
                     <footer class="site-footer">
-                        <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org"> Ghost</a></section>
-                        <a class="subscribe" href="{{@blog.url}}/rss/"><span class="tooltip">You should subscribe to my RSS feed.</span></a>
+                        <section class="poweredby i18n-marked">使用好潮的 <a class="icon-ghost" href="http://ghost.org"> Ghost</a> 來發佈 Blog</section>
+                        <a class="subscribe i18n-marked" href="{{@blog.url}}/rss/"><span class="tooltip">您也可以透過 RSS 來訂閱</span></a>
                         <div class="inner">
                              <section class="copyright">All content copyright <a href="{{@blog.url}}/">{{@blog.title}}</a> &copy; {{date format="YYYY"}}<br>All rights reserved.</section>
 
@@ -161,6 +153,6 @@
     <div class="inner">
         <h1 class="blog-title">{{@blog.title}}</h1>
         <h2 class="blog-description">{{@blog.description}}</h2>
-        <a href="/" class="btn">Back to Overview</a>
+        <a href="/" class="btn i18n-marked">回到首頁</a>
     </div>
 </div>
