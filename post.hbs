@@ -9,7 +9,7 @@
         {{! Everything inside the #post tags pulls data from the post }}
         {{#post}}
 
-        {{#has tag="articleImage"}}
+        {{#if image}}
 
         <div class="article-image">
             {{! 使用 Ghost 內建的 Post Image 作為封面 }}
@@ -90,7 +90,7 @@
         <br>
         <br>
 
-        {{/has}}
+        {{/if}}
 
 
             <section class="post-content">
